@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+<style>
+canvas {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:-1;
+}
+/* floating hearts */
+@keyframes floatHearts {
+    0% { transform: translateY(0) scale(0.7); opacity: 0.9; }
+    100% { transform: translateY(-120vh) scale(1); opacity: 0; }
+}
+
+.heart {
+    position: absolute;
+    bottom: -20px;
+    color: rgba(255,255,255,0.8);
+    font-size: 18px;
+    animation: floatHearts 6s linear infinite;
+    pointer-events: none;
+}
+    :root {
+        --pink1: #ffa3d8;
+        --pink2: #ff6faf;
+        --pink3: #ff59b5;
+        --white: #fff;
+    }
+
+    body {
+        font-family: "Poppins", Arial, sans-serif;
+        background: linear-gradient(135deg, var(--pink1), var(--pink2));
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        padding: 15px;
+    }
+    body {
+    background: linear-gradient(135deg, #ffc9e9, #ff6faf, #ff3f96);
+    background-size: 400% 400%;
+    animation: gradientMove 9s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+    h1 {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+        margin-bottom: 15px;
+        text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+
+    /* password box */
+    #passwordBox {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        width: 90%;
+        max-width: 300px;
+    }
+
+    input {
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 12px;
+        border-radius: 10px;
+        background: white;
+        color: var(--pink2);
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        transition: 0.2s;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    /* Envelope container */
+    .hidden {
+        display: none;
+    }
+
+    .envelope-wrapper {
+        margin-top: 25px;
+        opacity: 0;
+        pointer-events: none;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        transition: opacity 0.5s ease;
+    }
+
+    .envelope {
+        width: min(320px, 85vw);
+        height: min(200px, 50vw);
+        background: var(--pink2);
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .top {
+        width: 0;
+        height: 0;
+        border-left: calc(50% - 1px) solid transparent;
+        border-right: calc(50% - 1px) solid transparent;
+        border-bottom: calc(60%) solid var(--pink3);
+        position: absolute;
+        top: -2px; left: 0;
+        transform-origin: top;
+        transition: transform 0.8s ease;
+    }
+
+    .letter {
+        background: var(--white);
+        width: 90%;
+        height: 90%;
+        border-radius: 6px;
+        position: absolute;
+        left: 5%;
+        bottom: -90%;
+        padding: 15px;
+        color: #444;
+        transition: bottom 1s ease;
+        overflow-y: auto;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .show {
+        opacity: 1 !important;
+        pointer-events: all;
+    }
+
+    .open .top {
+        transform: rotateX(180deg);
+    }
+
+    .open .letter {
+        bottom: 5%;
+    }
+</style>
+</head>
+
+<body>
+    <h1>🎉 Happy Birthday Hishka! 🎉 </h1>
+
+    <!-- PASSWORD AREA  -->
+    <div id="passwordBox">
+        <p>Enter password</p>
+        <input type="password" id="pw" placeholder="Password...">
+        <button class="btn" onclick="checkPassword()">Unlock 💌</button>
+        <p id="msg" style="color:#ffd2e8;font-size:0.9rem;"></p>
+    </div>
+
+    <!-- ENVELOPE  -->
+    <div class="envelope-wrapper hidden" id="envWrap">
+        <div class="envelope" id="env">
+            <div class="top"></div>
+            <div class="letter">
+                🎀 Happy Birthday! 🎀 <br><br>
+
+                You got the password! <br><br>
+Well, to start off this letter, I’m sorry it took me so long to give it to you, that delay was entirely my fault.
+Now, to truly begin: when I first met you, I assumed you’d just be someone I’d talk to, get along with for a while, and eventually drift away from. I didn’t expect much. But it turns out I was completely wrong. You became one of the most reliable, kind, and genuinely influential people I’ve ever met.
+Thank you for all the things you’ve done for helping me when I needed it, for being patient even when I was difficult, and for showing support in ways that you probably thought were small, but meant a lot to me. 
+I don’t know if I’ve said this enough, but I’m grateful to have met you. You’re someone I won’t forget. Ever.
+            </div>
+        </div>
+    </div>
+
+<script>
+function spawnHearts() {
+    const h = document.createElement("div");
+    h.classList.add("heart");
+    h.innerText = "💗";
+    h.style.left = Math.random() * 100 + "%";
+    h.style.animationDuration = (4 + Math.random() * 3) + "s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 7000);
+}
+setInterval(spawnHearts, 900);
+    const SECRET = "cake"; // <<<< CHANGE THIS PASSWORD
+
+    function checkPassword() {
+        const input = document.getElementById("pw").value.trim();
+        const msg = document.getElementById("msg");
+
+        if (input === SECRET) {
+            msg.textContent = "Unlocked! 💖";
+            msg.style.color = "#fff";
+
+            document.getElementById("passwordBox").style.display = "none";
+            const wrap = document.getElementById("envWrap");
+            const env = document.getElementById("env");
+
+            wrap.classList.remove("hidden");
+            setTimeout(()=> wrap.classList.add("show"), 200);
+            setTimeout(()=> env.classList.add("open"), 500);
+
+        } else {
+            msg.textContent = "Wrong password";
+            msg.style.color = "#ffb6d9";
+        }
+    }
+</script>
+</body>
+</html>
